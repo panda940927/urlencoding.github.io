@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL 編碼/解碼工具</title>
+    <style>
+        /* 基本樣式為按鈕 */
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* 當滑鼠懸停在按鈕上時，變更背景色 */
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>URL 編碼/解碼工具</h1>
 
+    <!-- 輸入文字區域 -->
+    <label for="inputText">輸入文字：</label>
+    <textarea id="inputText" rows="4" cols="50"></textarea>
+
+    <br>
+
+    <!-- 選擇編碼或解碼操作 -->
+    <label for="encodeOrDecode">選擇操作：</label>
+    <select id="encodeOrDecode">
+        <option value="encode">編碼 (Encode)</option>
+        <option value="decode">解碼 (Decode)</option>
+    </select>
+
+    <br>
+
+    <!-- 操作執行按鈕 -->
+    <button onclick="performOperation()">執行</button>
+
+    <br>
+
+    <h2>結果：</h2>
+    <p id="result"></p>
+
+    <!-- 複製結果按鈕 -->
+    <button onclick="copyResult()">複製結果</button>
+
+    <script>
+        // 執行編碼或解碼操作
+        function performOperation() {
+            const inputText = document.getElementById('inputText').value;
+            const encodeOrDecode = document.getElementById('encodeOrDecode').value;
+            let result = '';
+
+            if (encodeOrDecode === 'encode') {
+                result = encodeURIComponent(inputText);
+            } else {
+                result = decodeURIComponent(inputText);
+            }
+
+            document.getElementById('result').textContent = result;
+        }
+
+        // 複製結果到剪貼板
+        function copyResult() {
+            const resultText = document.getElementById('result');
+            const textArea = document.createElement("textarea");
+            textArea.value = resultText.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert("結果已複製到剪貼板！");
+        }
+    </script>
+</body>
+</html>
